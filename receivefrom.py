@@ -18,5 +18,5 @@ def receivefrom(addr):
 
 # Example use:
 if __name__ == '__main__':
-    for r in receivefrom(("127.0.0.1", 15000)):
+    for r in receivefrom(("127.0.0.1", 3333)):
         print r['host'], r['request']

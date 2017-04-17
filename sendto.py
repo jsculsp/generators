@@ -22,4 +22,4 @@ if __name__ == '__main__':
 
     lines = follow(open("www/foo/access-log"))
     log = apache_log(lines)
-    sendto(log, ("127.0.0.1", 15000))
+    sendto(log, ("127.0.0.1", 3333))
