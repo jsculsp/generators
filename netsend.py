@@ -2,15 +2,19 @@
 #
 # Consume items and send them to a remote machine
 
-import socket, pickle
+import socket
+import pickle
+
 
 class NetConsumer(object):
-    def __init__(self,addr):
+    def __init__(self, addr):
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.s.connect(addr)
-    def send(self,item):
+
+    def send(self, item):
         pitem = pickle.dumps(item)
         self.s.sendall(pitem)
+
     def close(self):
         self.s.close()
 
@@ -23,17 +27,13 @@ if __name__ == '__main__':
 
     # A class that sends 404 requests to another host
     class Stat404(NetConsumer):
-        def send(self,item):
+        def send(self, item):
             if item['status'] == 404:
-                NetConsumer.send(self,item)
+                NetConsumer.send(self, item)
     
-    stat404 = Stat404(("",15000))
+    stat404 = Stat404(("", 15000))
     
     lines = follow(open("run/foo/access-log"))
-    log   = apache_log(lines)
-    broadcast(log,[stat404])
+    log = apache_log(lines)
+    broadcast(log, [stat404])
 
-
-    
-    
-    
