@@ -2,6 +2,7 @@
 #
 # Broadcast a generator source to a collection of consumers
 
+
 def broadcast(source, consumers):
     for item in source:
         for c in consumers:
@@ -12,7 +13,7 @@ def broadcast(source, consumers):
 if __name__ == '__main__':
 
     class Consumer(object):
-        def send(self,item):
+        def send(self, item):
             print self, "got", item
 
     c1 = Consumer()
@@ -21,5 +22,4 @@ if __name__ == '__main__':
 
     from follow import *
     lines = follow(open("run/foo/access-log"))
-    broadcast(lines,[c1,c2,c3])
-
+    broadcast(lines, [c1, c2, c3])
