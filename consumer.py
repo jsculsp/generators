@@ -2,9 +2,10 @@
 #
 # consumer decorator and co-routine example
 
+
 def consumer(func):
-    def start(*args,**kwargs):
-        c = func(*args,**kwargs)
+    def start(*args, **kwargs):
+        c = func(*args, **kwargs)
         c.next()
         return c
     return start
@@ -22,8 +23,7 @@ if __name__ == '__main__':
             print "Kaboom!"
 
     r = recv_count()
-    for i in range(5,0,-1):
+    for i in range(5, 0, -1):
         r.send(i)
 
     r.close()
-

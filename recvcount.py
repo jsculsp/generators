@@ -2,6 +2,7 @@
 #
 # Example of a co-routine
 
+
 def recv_count():
     try:
         while True:
@@ -12,8 +13,7 @@ def recv_count():
 
 r = recv_count()
 r.next()
-for i in range(5,0,-1):
+for i in range(5, 0, -1):
     r.send(i)
 
 r.close()
-

@@ -7,12 +7,14 @@ from apachelog import *
 from follow import *
 from broadcast import *
 
+
 @consumer
 def find_404():
     while True:
         r = (yield)
         if r['status'] == 404:
-            print r['status'],r['datetime'],r['request']
+            print r['status'], r['datetime'], r['request']
+
 
 @consumer
 def bytes_transferred():
@@ -23,6 +25,6 @@ def bytes_transferred():
         print "Total bytes", total
 
 lines = follow(open("run/foo/access-log"))
-log   = apache_log(lines)
+log = apache_log(lines)
 
-broadcast(log, [find_404(),bytes_transferred()])
+broadcast(log, [find_404(), bytes_transferred()])
