@@ -3,25 +3,32 @@
 # Generate items from multiple generators (multiplex)
 #
 
-import Queue, threading
+import Queue
+import threading
+
+
 def gen_multiplex(genlist):
     item_q = Queue.Queue()
+
     def run_one(source):
-        for item in source: item_q.put(item)
+        for item in source:
+            item_q.put(item)
 
     def run_all():
         thrlist = []
         for source in genlist:
-            t = threading.Thread(target=run_one,args=(source,))
+            t = threading.Thread(target=run_one, args=(source,))
             t.start()
             thrlist.append(t)
-        for t in thrlist: t.join()
+        for t in thrlist:
+            t.join()
         item_q.put(StopIteration)
 
     threading.Thread(target=run_all).start()
     while True:
         item = item_q.get()
-        if item is StopIteration: return
+        if item is StopIteration:
+            return
         yield item
 
 
@@ -41,7 +48,7 @@ if __name__ == '__main__':
     log1 = follow(open("run/foo/access-log"))
     log2 = follow(open("run/bar/access-log"))
     
-    log = gen_multiplex([log1,log2])
+    log = gen_multiplex([log1, log2])
     
     for line in log:
         print line,
