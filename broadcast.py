@@ -21,5 +21,5 @@ if __name__ == '__main__':
     c3 = Consumer()
 
     from follow import *
-    lines = follow(open("run/foo/access-log"))
+    lines = follow(open("www/foo/access-log"))
     broadcast(lines, [c1, c2, c3])
