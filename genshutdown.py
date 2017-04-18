@@ -7,6 +7,7 @@
 from follow import *
 
 lines = follow(open("run/foo/access-log"))
-for i,line in enumerate(lines):
+for i, line in enumerate(lines):
     print line,
-    if i == 10: lines.close()
+    if i == 10:
+        lines.close()

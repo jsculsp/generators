@@ -3,23 +3,26 @@
 # Example of a generator that uses an event to shut down
 
 import time
+import threading
 
-def follow(thefile,shutdown=None):
-    thefile.seek(0,2)
+
+def follow(thefile, shutdown=None):
+    thefile.seek(0, 2)
     while True:
-        if shutdown and shutdown.isSet(): break
+        if shutdown and shutdown.isSet():
+            break
         line = thefile.readline()
         if not line:
-           time.sleep(0.1)
-           continue
+            time.sleep(0.1)
+            continue
         yield line
 
-import threading
 
 shutdown_event = threading.Event()
 
+
 def run():
-    lines = follow(open("run/foo/access-log"),shutdown_event)
+    lines = follow(open("run/foo/access-log"), shutdown_event)
     for line in lines:
         print line,
 
@@ -37,4 +40,3 @@ time.sleep(60)
 print "Shutting down"
 
 shutdown_event.set()
-
